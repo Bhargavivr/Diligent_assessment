@@ -1,0 +1,14 @@
+﻿You are a senior data engineer. Using the previously generated e-commerce CSV files (customers.csv, products.csv, orders.csv, order_items.csv, inventory_events.csv) in the ./data directory, produce a Python 3 script named load_ecommerce_data.py that loads the data into a SQLite database called ecommerce.db.
+
+Requirements:
+- Use only built-in libraries plus sqlite3 and csv.
+- Create normalized tables: customers, products, orders, order_items, inventory_events.
+- Explicitly define CREATE TABLE statements with appropriate column types (TEXT, INTEGER, REAL, NUMERIC) and primary/foreign keys matching the CSV schemas. Include NOT NULL constraints where reasonable.
+- Wrap inserts in transactions and use executemany for efficiency.
+- Coerce CSV values into correct types (e.g., decimals as float, timestamps as text, booleans to integers).
+- Enforce referential integrity with FOREIGN KEY constraints (ensure PRAGMA foreign_keys = ON).
+- Handle idempotency: drop existing tables before recreating, or delete existing rows and vacuum.
+- Log high-level progress to stdout (e.g., which table is loading and row counts).
+- Provide a README section at the end of the script (multi-line string) describing how to run it and assumptions.
+
+Return the full load_ecommerce_data.py file content only; no extra analysis.

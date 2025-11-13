@@ -1,0 +1,61 @@
+﻿You are an expert data engineer tasked with creating a synthetic e-commerce dataset for analytics testing. Generate approximately five CSV files with 500-1,000 rows each that reflect realistic relationships between entities. Include at minimum the following tables and schemas:
+
+1. customers.csv
+   - customer_id (UUID)
+   - first_name
+   - last_name
+   - email (unique, realistic domains)
+   - phone
+   - created_at (ISO 8601 timestamp within the last 3 years)
+   - marketing_opt_in (boolean)
+
+2. products.csv
+   - product_id (UUID)
+   - name
+   - category (choose from electronics, apparel, home, beauty, sports)
+   - brand
+   - price (decimal, currency USD)
+   - created_at (ISO 8601 timestamp within the last 3 years)
+   - inventory_count (integer)
+
+3. orders.csv
+   - order_id (UUID)
+   - customer_id (reference customers.csv)
+   - order_date (ISO 8601 timestamp within the last 3 years)
+   - order_status (pending, shipped, delivered, cancelled, returned)
+   - shipping_address
+   - shipping_city
+   - shipping_state
+   - shipping_postal_code
+   - shipping_country (use US, CA, GB, AU)
+   - subtotal (numeric)
+   - shipping_cost (numeric)
+   - tax_amount (numeric)
+   - total_amount (subtotal + shipping_cost + tax_amount)
+
+4. order_items.csv
+   - order_item_id (UUID)
+   - order_id (reference orders.csv)
+   - product_id (reference products.csv)
+   - quantity (1-5)
+   - unit_price (match products.csv price)
+   - discount_amount (numeric, default 0)
+   - line_total (quantity * (unit_price - discount_amount))
+
+5. inventory_events.csv
+   - event_id (UUID)
+   - product_id (reference products.csv)
+   - event_type (restock, sale, return, adjustment)
+   - quantity_change (integer, negative for sales)
+   - event_timestamp (ISO 8601 timestamp within the last 3 years)
+   - note (short text)
+
+Guidelines:
+- Ensure referential integrity across files.
+- Use realistic-seeming names, addresses, and brands; avoid obviously fake placeholders.
+- Vary timestamps to simulate real business activity; ensure chronological consistency (e.g., order_items must not predate their parent order).
+- Distribute numeric values with realistic variation (e.g., pricing tiers by category, taxes derived from subtotal, discounts on a minority of items).
+- Save each table as its own CSV file with headers and UTF-8 encoding.
+- Provide a short README.md summarizing the files, row counts, and generation assumptions.
+
+Return the complete file contents and filenames in your response. Avoid extra commentary beyond a short summary.
