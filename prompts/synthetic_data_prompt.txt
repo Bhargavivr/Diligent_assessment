@@ -1,4 +1,4 @@
-﻿You are an expert data engineer tasked with creating a production-grade synthetic e-commerce data pack for a hackathon. Produce **seven** interrelated CSV files (600-1,200 rows each) plus a README that highlights assumptions, validation checks, and summary stats. Files must be UTF-8, comma-delimited, and obey the schemas below while remaining narratively consistent (e.g., campaigns drive orders, loyalty tiers affect marketing opt-in).
+﻿You are an expert data engineer tasked with creating a production-grade synthetic e-commerce data pack for an online recruitment assessment. Produce **seven** interrelated CSV files (600-1,200 rows each) plus a README that highlights assumptions, validation checks, and summary stats. Files must be UTF-8, comma-delimited, and obey the schemas below while remaining narratively consistent (e.g., campaigns drive orders, loyalty tiers affect marketing opt-in).
 
 1. customers.csv
    - customer_id (UUID)

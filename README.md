@@ -1,6 +1,6 @@
 ﻿# Synthetic E-Commerce Prompt Pack
 
-This repository contains upgraded prompt templates for generating and working with a feature-rich synthetic e-commerce dataset inside Cursor. The flow covers three stages: data generation, SQLite ingestion, and analytical querying, each tuned to impress hackathon judges with depth and rigor.
+This repository contains upgraded prompt templates for generating and working with a feature-rich synthetic e-commerce dataset inside Cursor. The flow covers three stages: data generation, SQLite ingestion, and analytical querying, each tailored to showcase excellence during Diligent’s campus recruitment assessment.
 
 ## Contents
 - `prompts/synthetic_data_prompt.txt` — directs Cursor/GPT to create seven interlinked CSVs (customers, products, orders, order_items, inventory_events, marketing_campaigns, support_tickets) with loyalty tiers, campaign attribution, and validation summaries.
