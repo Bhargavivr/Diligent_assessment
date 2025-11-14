@@ -1,4 +1,4 @@
-﻿You are an expert data engineer tasked with creating a synthetic e-commerce dataset for analytics testing. Generate approximately five CSV files with 500-1,000 rows each that reflect realistic relationships between entities. Include at minimum the following tables and schemas:
+﻿You are an expert data engineer tasked with creating a production-grade synthetic e-commerce data pack for a hackathon. Produce **seven** interrelated CSV files (600-1,200 rows each) plus a README that highlights assumptions, validation checks, and summary stats. Files must be UTF-8, comma-delimited, and obey the schemas below while remaining narratively consistent (e.g., campaigns drive orders, loyalty tiers affect marketing opt-in).
 
 1. customers.csv
    - customer_id (UUID)
@@ -9,6 +9,9 @@
    - created_at (ISO 8601 timestamp within the last 3 years)
    - marketing_opt_in (boolean)
 
+   - loyalty_tier (bronze, silver, gold, platinum; distribution skewed toward bronze)
+   - lifetime_value_bucket (low, medium, high; derive from total spent)
+
 2. products.csv
    - product_id (UUID)
    - name
@@ -17,6 +20,7 @@
    - price (decimal, currency USD)
    - created_at (ISO 8601 timestamp within the last 3 years)
    - inventory_count (integer)
+   - active_flag (boolean)
 
 3. orders.csv
    - order_id (UUID)
@@ -32,6 +36,8 @@
    - shipping_cost (numeric)
    - tax_amount (numeric)
    - total_amount (subtotal + shipping_cost + tax_amount)
+   - coupon_code (nullable)
+   - marketing_campaign_id (nullable; reference marketing_campaigns.csv)
 
 4. order_items.csv
    - order_item_id (UUID)
@@ -41,6 +47,7 @@
    - unit_price (match products.csv price)
    - discount_amount (numeric, default 0)
    - line_total (quantity * (unit_price - discount_amount))
+   - tax_rate (percentage applied)
 
 5. inventory_events.csv
    - event_id (UUID)
@@ -49,13 +56,39 @@
    - quantity_change (integer, negative for sales)
    - event_timestamp (ISO 8601 timestamp within the last 3 years)
    - note (short text)
+   - actor (system, warehouse_bot, associate, vendor)
+
+6. marketing_campaigns.csv
+   - campaign_id (UUID)
+   - name
+   - channel (email, sms, social, paid_search, affiliate)
+   - start_date
+   - end_date
+   - target_segment (map to loyalty tiers or regions)
+   - spend (numeric)
+   - conversions (number of orders attributed)
+
+7. support_tickets.csv
+   - ticket_id (UUID)
+   - customer_id (reference customers.csv)
+   - order_id (nullable, reference orders.csv)
+   - opened_at
+   - closed_at (nullable)
+   - category (delivery, billing, product_quality, returns, general)
+   - resolution_status (resolved, escalated, pending)
+   - csat_score (1-5 integers, null if unresolved)
 
 Guidelines:
 - Ensure referential integrity across files.
 - Use realistic-seeming names, addresses, and brands; avoid obviously fake placeholders.
 - Vary timestamps to simulate real business activity; ensure chronological consistency (e.g., order_items must not predate their parent order).
 - Distribute numeric values with realistic variation (e.g., pricing tiers by category, taxes derived from subtotal, discounts on a minority of items).
-- Save each table as its own CSV file with headers and UTF-8 encoding.
-- Provide a short README.md summarizing the files, row counts, and generation assumptions.
+- Generate feature-consistent logic:
+  - Inventory counts must reconcile with net inventory_events per product.
+  - Loyalty tier upgrades occur only after spend thresholds (e.g., >$1k for gold).
+  - Campaign attribution should align with coupon_code usage on orders.
+  - Support tickets referencing orders must post-date the associated order_date.
+- Add lightweight data quality checks in the README (duplicate checks, FK coverage, outlier notes).
+- Provide dataset-level insights (row counts, spend distribution, top categories) in README tables or bullet lists.
 
-Return the complete file contents and filenames in your response. Avoid extra commentary beyond a short summary.
+Return the complete file contents and README. Conclude with a concise summary of how the data was validated and any known caveats.
