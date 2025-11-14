@@ -3,9 +3,9 @@
 This repository contains upgraded prompt templates for generating and working with a feature-rich synthetic e-commerce dataset inside Cursor. The flow covers three stages: data generation, SQLite ingestion, and analytical querying, each tailored to showcase excellence during Diligent’s campus recruitment assessment.
 
 ## Contents
-- `prompts/synthetic_data_prompt.txt` — directs Cursor/GPT to create seven interlinked CSVs (customers, products, orders, order_items, inventory_events, marketing_campaigns, support_tickets) with loyalty tiers, campaign attribution, and validation summaries.
-- `prompts/sqlite_ingest_prompt.txt` — instructs Cursor/GPT to build a CLI-driven Python ETL that loads the dataset into SQLite with constraints, data-quality metrics, and optional dry-run validation.
-- `prompts/multi_table_query_prompt.sql` — guides Cursor/GPT to author an insight-rich SQL script covering customer LTV, campaign lift, and support-ticket impact with well-documented CTEs.
+- `prompts/synthetic_data_prompt.txt` — directs Cursor/GPT to create five interlinked CSVs (customers, products, orders, order_items, inventory_events) with loyalty tiers, acquisition channels, and built-in validation summaries.
+- `prompts/sqlite_ingest_prompt.txt` — instructs Cursor/GPT to build a CLI-driven Python ETL that loads the dataset into SQLite with constraints, derived `customer_kpis`, data-quality metrics, and optional dry-run validation.
+- `prompts/multi_table_query_prompt.sql` — guides Cursor/GPT to author an insight-rich SQL script covering customer LTV, channel mix, and inventory health with well-documented CTEs.
 
 ## Suggested Usage in Cursor
 1. Open each prompt file and paste the contents into a new Cursor chat (or use “Run Prompt”).
@@ -25,4 +25,4 @@ Ensure you are authenticated with GitHub (via PAT or SSH) before pushing.
 ## Bonus Ideas for Differentiation
 - Capture screenshots or Loom recordings of each Cursor run and place them in `docs/`.
 - Generate a lightweight dashboard (e.g., DuckDB + Streamlit) using the same data and link it in the README.
-- Write a short “judges guide” summarizing what makes this dataset unique (loyalty tiers, campaign logic, support insights).
+- Write a short “judges guide” summarizing what makes this dataset unique (loyalty tiers, channel attribution, inventory rigor).

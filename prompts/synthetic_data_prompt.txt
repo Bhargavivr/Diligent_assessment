@@ -1,4 +1,4 @@
-﻿You are an expert data engineer tasked with creating a production-grade synthetic e-commerce data pack for an online recruitment assessment. Produce **seven** interrelated CSV files (600-1,200 rows each) plus a README that highlights assumptions, validation checks, and summary stats. Files must be UTF-8, comma-delimited, and obey the schemas below while remaining narratively consistent (e.g., campaigns drive orders, loyalty tiers affect marketing opt-in).
+﻿You are an expert data engineer tasked with creating a production-grade synthetic e-commerce data pack for an online recruitment assessment. Produce **five** interrelated CSV files (600-1,200 rows each) plus a README that highlights assumptions, validation checks, and summary stats. Files must be UTF-8, comma-delimited, and obey the schemas below while remaining narratively consistent (e.g., campaigns drive orders, loyalty tiers affect marketing opt-in).
 
 1. customers.csv
    - customer_id (UUID)
@@ -37,7 +37,8 @@
    - tax_amount (numeric)
    - total_amount (subtotal + shipping_cost + tax_amount)
    - coupon_code (nullable)
-   - marketing_campaign_id (nullable; reference marketing_campaigns.csv)
+   - acquisition_channel (email, sms, social, paid_search, affiliate, organic)
+   - customer_sentiment (positive, neutral, negative — derived from support history)
 
 4. order_items.csv
    - order_item_id (UUID)
@@ -58,36 +59,16 @@
    - note (short text)
    - actor (system, warehouse_bot, associate, vendor)
 
-6. marketing_campaigns.csv
-   - campaign_id (UUID)
-   - name
-   - channel (email, sms, social, paid_search, affiliate)
-   - start_date
-   - end_date
-   - target_segment (map to loyalty tiers or regions)
-   - spend (numeric)
-   - conversions (number of orders attributed)
-
-7. support_tickets.csv
-   - ticket_id (UUID)
-   - customer_id (reference customers.csv)
-   - order_id (nullable, reference orders.csv)
-   - opened_at
-   - closed_at (nullable)
-   - category (delivery, billing, product_quality, returns, general)
-   - resolution_status (resolved, escalated, pending)
-   - csat_score (1-5 integers, null if unresolved)
-
 Guidelines:
 - Ensure referential integrity across files.
 - Use realistic-seeming names, addresses, and brands; avoid obviously fake placeholders.
 - Vary timestamps to simulate real business activity; ensure chronological consistency (e.g., order_items must not predate their parent order).
 - Distribute numeric values with realistic variation (e.g., pricing tiers by category, taxes derived from subtotal, discounts on a minority of items).
-- Generate feature-consistent logic:
+- Generate feature-consistent logic within the five tables:
   - Inventory counts must reconcile with net inventory_events per product.
   - Loyalty tier upgrades occur only after spend thresholds (e.g., >$1k for gold).
-  - Campaign attribution should align with coupon_code usage on orders.
-  - Support tickets referencing orders must post-date the associated order_date.
+  - Acquisition_channel mix should correlate with coupon_code usage and marketing_opt_in.
+  - customer_sentiment should reflect issues implied by inventory shortages or high return rates.
 - Add lightweight data quality checks in the README (duplicate checks, FK coverage, outlier notes).
 - Provide dataset-level insights (row counts, spend distribution, top categories) in README tables or bullet lists.
 
